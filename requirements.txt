@@ -1,0 +1,17 @@
+Flask==1.0.1
+Flask-SQLAlchemy
+psycopg2
+werkzeug==0.16.0
+flask-marshmallow
+marshmallow-sqlalchemy
+Flask-Bcrypt
+Flask-Login
+Flask-Mail
+Flask-Moment
+Flask-Modus
+flask-bootstrap
+gunicorn
+flask-script
+flask-migrate
+pillow
+mega.py
