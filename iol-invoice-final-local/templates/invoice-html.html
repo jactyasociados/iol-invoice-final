@@ -1,0 +1,180 @@
+{% extends "invoice_base.html" %}
+{% block title %}Invoice HTML{% endblock %}
+{% block content %}
+  
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Invoice
+    </h1>
+    
+
+  
+  
+  <div class="row">
+    <div class="col-sm-6">
+     <img src="{{ image_data.image_url }}" height="{{ image_data.height }}" width="{{ image_data.width }}" alt="Logo"> 
+    </div>
+    <div class="col-sm-6">
+          <span style="float:right;">{{ profile_data.businessname }}</span>
+      <br /><span style="float:right;">{{ profile_data.email }}</span>
+      <br /><span style="float:right;">{{ profile_data.ein }}</span>
+      <br /><span style="float:right;">{{ profile_data.address1 }}</span>
+      <br /><span style="float:right;">{{ profile_data.address2 }}</span>
+      <br /><span style="float:right;">{{ profile_data.city }} &nbsp; {{ profile_data.state }} &nbsp; {{ profile_data.zip }}</span>
+    </div> 
+  </div>
+      
+    <div class="row">
+      <div class="col-sm-6">
+      <h4>Billing address</h4>
+      <div><strong>Business Name</strong><span style="float: right">{{ invoice_data.businessname }}</span></div> 
+      <div><strong>Email</strong><span style="float: right">{{ invoice_data.email }}</span></div>
+      <div><strong>EIN</strong><span style="float: right">{{ invoice_data.ein }}</span></div>
+      <div><strong>Address</strong><span style="float: right">{{ invoice_data.address }}</span></div>
+      <div><strong>Address 2</strong><span style="float: right">{{ invoice_data.address2 }}</span></div>
+      <div><strong>City</strong><span style="float: right">{{ invoice_data.city }}</span></div>
+      <div><strong>State</strong><span style="float: right">{{ invoice_data.state }}</span></div>
+      <div><strong>Zip</strong><span style="float: right">{{ invoice_data.zip }}</span></div>
+      <div><strong>Invoice Date</strong><span style="float: right">{{ invoice_data.invoice_date }}</span></div>
+      <div><strong>Invoice Number</strong><span style="float: right">{{ invoice_data.invoice_number }}</span></div>
+  
+   </div>
+      
+      <div class="col-sm-6">
+       <h4>Shipping Adress</h4>
+       <div><strong>Business Name</strong><span style="float: right">{{ invoice_data.businessname_shipping }}</span></div> 
+      <div><strong>Email</strong><span style="float: right">{{ invoice_data.email_shipping }}</span></div>
+      <div><strong>EIN</strong><span style="float: right">{{ invoice_data.ein_shipping }}</span></div>
+      <div><strong>Address</strong><span style="float: right">{{ invoice_data.address_shipping }}</span></div>
+      <div><strong>Address 2</strong><span style="float: right">{{ invoice_data.address2_shipping }}</span></div>
+      <div><strong>City</strong><span style="float: right">{{ invoice_data.city_shipping }}</span></div>
+      <div><strong>State</strong><span style="float: right">{{ invoice_data.state_shipping }}</span></div>
+      <div><strong>Zip</strong><span style="float: right">{{ invoice_data.zip_shipping }}</span></div>
+      <div><strong>Taxes</strong><span style="float: right">{{ invoice_data.taxes }}</span></div>
+       
+ </div>
+ </div>
+<div class="row" style="margin-top:20px;">
+    {% for items in items_data -%}
+    <div class="col-sm-6">
+    <div style="float: left; width: 50%;"><span style="float: left;"><strong>Description</strong> &nbsp; {{ items.item_desc }}</span></div><div style="float: left; margin-left: 20px;"><span style="float: right;"><strong>Price</strong> &nbsp; {{ items.item_price }}</span></div> 
+    </div>
+    <div class="col-sm-6">
+    <div style="float: left; width: 50%;"><span style="float: left;"><strong>Quantity</strong> &nbsp; {{ items.item_quant }}</div></span><div style="float: left; margin-left: 20px;"><span style="float: right;"><strong>Total</strong> &nbsp; {{ items.amount }}</span></div> 
+    </div>
+   
+    {% endfor %}
+    <!--end row-->
+    </div>
+    <div class="row" style="margin-top:20px;">
+    <div class="col-lg-3 col-md-4 col-sm-6">
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6">
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6">
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6">
+    <div><strong>Subtotal</strong><span style="float: right">{{ invoice_values.subtotal }}</span></div>
+    <div><strong>Taxes</strong><span style="float: right">{{ invoice_values.taxes }}</span></div>
+    <div><strong>Total</strong><span style="float: right">{{ invoice_values.total }}</span></div>
+    </div>
+<!-- row -->    
+</div>   
+
+
+<a href="{{ template_data.template_url }}" id="pdf_template">Invoice PDF</a>
+
+ 
+  </div>
+  <!-- /.container -->
+  
+  <script src="js/jquery-3.2.1.min.js"></script>  
+  <script src="js/jquery-ui.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      $('#ajax').bind('click', function() {
+
+      $.ajax({
+      
+      url : '/_get_data_by_ein', 
+          
+      data :  {  ein : $('input[name="ein"]').val() },
+      
+      type : 'GET',
+      
+      dataType : 'json',
+          
+      success : function(data) {
+          //alert(data.businessname);
+            //var obj = jQuery.parseJSON(data); 
+            //alert(obj);
+            //alert(data);
+          $("#businessname").val(data.businessname);
+          $("#email").val(data.email);
+          $("#address").val(data.address);
+          $("#address2").val(data.address2);
+          $("#city").val(data.city);
+          $("#state").val(data.state);
+          $("#zip").val(data.zip);
+          var txt = JSON.stringify(data);
+          var obj = JSON.parseJSON(txt);
+          //alert(obj.businessname);
+          //alert(txt);
+          
+        }
+        });
+        return false;
+        
+      });
+    });
+    
+    $(function(){
+    $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+});
+    
+  </script>
+<script type="text/javascript">
+ function deselect(e) {
+  $('.pop').slideFadeToggle(function() {
+    e.removeClass('selected');
+  });    
+}
+
+$(function() {
+  $('#contact').on('click', function() {
+    if($(this).hasClass('selected')) {
+      deselect($(this));               
+    } else {
+      $(this).addClass('selected');
+      $('.pop').slideFadeToggle();
+    }
+    return false;
+  });
+
+  $('.close').on('click', function() {
+    deselect($('#contact'));
+    return false;
+  });
+});
+
+$.fn.slideFadeToggle = function(easing, callback) {
+  return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
+};
+</script>
+
+
+
+
+
+
+  <!-- Footer -->
+  <footer class="footer mt-auto py-3">
+  <div class="container">
+    <span class="text-muted">Place sticky footer content here.</span>
+  </div>
+</footer>
+{% endblock %}

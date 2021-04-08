@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css" />
+    <title>form</title>
+</head>
+<body>
+<form method=POST>
+<table id="linkTable">
+    <tbody><tr class="tr_clone" id="addrow">
+        <td>First: </td>
+        <td><input class="from-field" id="from" type="text" name="first"></td>
+        <td>Last: </td>
+        <td><input class="to-field" id="to" type="text" name="last"></td>
+        <td>Email: </td>
+        <td><input class="port-field" id="ports" type="text" name="email"></td>
+    </tr>
+</tbody></table>
+<input type="button" id="addbtn" value="add row">
+<input type="submit" value="submit">
+<script>
+    $("#addbtn").click(function(){
+        $("#addrow").clone().find("input:text").val("").end().prependTo("#linkTable");
+    });
+</script>
+
+</form>
+<script src="js/jquery-3.5.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="dist/js/bootstrap.min.js"></script>
+</body>
+</html>

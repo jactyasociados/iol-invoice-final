@@ -1,0 +1,306 @@
+{% extends "invoice_base.html" %}
+{% block title %}Invoice{% endblock %}
+{% block content %}
+  
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Invoice
+    </h1>
+<form method="POST" action="/invoice">
+    <div class="row">
+      <div class="col-lg-6">
+      <h4>Billing address</h4>
+ 
+  
+   <div class="form-group">
+    <label for="businessname">Business Name</label>
+    <input type="text" class="form-control" id="businessname" name="businessname" value="" />
+  </div>
+  
+ <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email" value="" />
+    </div>
+    <div class="form-group col-md-6">
+      <label for="ein">EIN</label>
+      <input type="text" class="form-control" id="ein" name="ein" value="" />
+    </div>
+ </div>
+ 
+ <div class="form-group">
+ <button class="btn btn-primary btn-lg btn-block" type="submit" id="ajax">Fill data by EIN</button>
+ </div>
+
+  
+   <div class="form-group">
+    <label for="address">Address</label>
+    <input type="text" class="form-control" id="address" name="address" value="" />
+  </div>
+  <div class="form-group">
+    <label for="address2">Address 2</label>
+    <input type="text" class="form-control" id="address2" name="address2" value="" />
+  </div>			
+  
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="city">City</label>
+      <input type="text" class="form-control" id="city" name="city" value="" />
+    </div>
+    <div class="form-group col-md-4">
+      <label for="state">State</label>
+      <input type="text" class="form-control" id="state" name="state" value="" />
+    </div>
+    <div class="form-group col-md-2">
+      <label for="zip">Zip</label>
+      <input type="text" class="form-control" id="zip" name="zip" value="" />
+    </div>
+  </div>
+<div class="form-row">
+<div class="form-group col-md-6">
+      <input class="form-check-input" type="checkbox" id="checker" name="checker" />
+      <label class="form-check-label" for="checker">
+        My Shipping Adress is the same as Billing
+      </label>
+    </div>
+</div>
+      </div>
+      <div class="col-lg-6">
+       <h4>Shipping Adress</h4>
+ 
+  <div class="form-group">
+    <label for="businessname_shipping">Business Name</label>
+    <input type="text" class="form-control" id="businessname_shipping" name="businessname_shipping" value="" />
+  </div>
+ 
+  
+  
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="email_shipping">Email</label>
+      <input type="email" class="form-control" id="email_shipping" name="email_shipping" value="" />
+    </div>
+    <div class="form-group col-md-6">
+      <label for="ein_shipping">EIN</label>
+      <input type="text" class="form-control" id="ein_shipping" name="ein_shipping" value="" />
+    </div>
+ </div>
+  
+ 
+  <div class="form-group">
+    <label for="address_shipping">Address</label>
+    <input type="text" class="form-control" id="address_shipping" name="address_shipping" value="" />
+  </div>
+  <div class="form-group">
+    <label for="address2_shipping">Address 2</label>
+    <input type="text" class="form-control" id="address2_shipping" name="address2_shipping" value="" />
+  </div>
+ 
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="city_shipping">City</label>
+      <input type="text" class="form-control" id="city_shipping" name="city_shipping" value="" />
+    </div>
+    <div class="form-group col-md-4">
+      <label for="state_shipping">State</label>
+      <input type="text" class="form-control" id="state_shipping" name="state_shipping" value="" />
+    </div>
+    <div class="form-group col-md-2">
+      <label for="zip_shipping">Zip</label>
+      <input type="text" class="form-control" id="zip_shipping" name="zip_shipping" value="" />
+    </div>
+  </div>
+  
+       </div>
+        
+</div>
+    
+
+     <div class="row">
+      <div class="col-lg-6"> 
+      <div class="form-group">
+      <label for="invoice_number">Invoice Number</label>
+      <input type="text" name="invoice_number" id="invoice_number" />
+      </div>
+      </div>
+      <div class="col-lg-6">
+      <div class="form-group">
+      <label for="datepicker">Select Invoice Date</label>
+      <input type="text" name="invoice_date" id="datepicker" class="form-control" placeholder="yyyy-mm-dd" />
+      </div>
+      </div>
+      </div>
+      
+      <div class="row">
+      <div class="col-lg-6"> 
+      <div class="form-group">
+            <label for="taxes">Taxes as percentage %</label>
+      <input type="text" class="from-control" id="taxes" name="taxes" value=""/>
+
+      </div>
+      </div>
+      <div class="col-lg-6">
+      <div class="form-group">
+
+      </div>
+      </div>
+      </div>
+             
+
+    <hr class="mb-4">
+    <div class="cloned-row">    
+    <div class="row" style="margin-top:10px;">
+    
+    <div class="col-lg-3 col-md-4 col-sm-6">
+      <label for="descrition">Description</label>
+      <input type="text" class="form-control" id="description" name="item_desc[]" placeholder="" value="" required />
+            <div class="invalid-feedback">
+              Valid Description is required. 
+            </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6">
+     <label for="price">Price</label>
+            <input type="text" class="form-control" id="price" name="item_price[]" placeholder="" value="" required />
+            <div class="invalid-feedback">
+              Valid price is required.
+            </div> 
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+     <label for="quantity">Quantity</label>
+     <input type="text" class="form-control" id="quantity" name="item_quant[]" placeholder="" value="" required />
+            <div class="invalid-feedback">
+              Valid quantity is required.
+            </div> 
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+     <label for="total">Total</label>
+        <input type="text" class="form-control" name="amount[]" value="" id="total"/>
+    </div>    
+ </div>
+</div>
+
+<hr class="mb-4">
+      <!-- Button (Double) -->
+       <div class="row">
+    <div class="col-md-2">
+        <input type="button" class="btn btn-primary btn-sm btn-info" value="add row" id="clone">
+    </div>
+    <div class="col-md-2">
+        <input type="button" class="btn btn-primary btn-sm btn-danger" value="remove row" id="remove">
+    </div>
+</div>
+
+<hr class="mb-4">
+
+<div class="row" style="margin-top:10px;">
+<div class="col-lg-3 col-md-4 col-sm-6">
+</div>
+<div class="col-lg-3 col-md-4 col-sm-6">
+</div>
+
+<div class="col-lg-3 col-md-4 col-sm-6">
+</div>
+<div class="col-lg-3 col-md-4 col-sm-6">
+<label>Subtotal</label><input type="text" id="subtotal" name="subtotal" class="form-control" />
+</div>
+</div>
+
+<div class="row" style="margin-top:10px;">
+<div class="col-lg-3 col-md-4 col-sm-6">
+</div>
+<div class="col-lg-3 col-md-4 col-sm-6">
+</div>
+<div class="col-lg-3 col-md-4 col-sm-6">
+</div>
+
+<div class="col-lg-3 col-md-4 col-sm-6">
+<label>Taxes</label><input type="text" id="totaltax" name="totaltax" class="form-control" />
+</div>
+</div>
+
+<div class="row" style="margin-top:10px;">
+<div class="col-lg-3 col-md-4 col-sm-6">
+</div>
+<div class="col-lg-3 col-md-4 col-sm-6">
+</div>
+<div class="col-lg-3 col-md-4 col-sm-6">
+</div>
+
+<div class="col-lg-3 col-md-4 col-sm-6">
+<label>Total</label><input type="text" id="grandtotal" name="grandtotal" class="form-control" />
+</div>
+</div>
+<div id="result"></div>
+<hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+</form>
+</div>
+  <!-- /.container -->
+  
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      $('#ajax').bind('click', function() {
+
+      $.ajax({
+      
+      url : '/_get_data_by_ein', 
+          
+      data :  {  ein : $('input[name="ein"]').val() },
+      
+      type : 'GET',
+      
+      dataType : 'json',
+          
+      success : function(data) {
+          //alert(data.businessname);
+            //var obj = jQuery.parseJSON(data); 
+            //alert(obj);
+            //alert(data);
+          $("#businessname").val(data.businessname);
+          $("#email").val(data.email);
+          $("#address").val(data.address);
+          $("#address2").val(data.address2);
+          $("#city").val(data.city);
+          $("#state").val(data.state);
+          $("#zip").val(data.zip);
+          var txt = JSON.stringify(data);
+          var obj = JSON.parseJSON(txt);
+          //alert(obj.businessname);
+          //alert(txt);
+          
+        }
+        });
+        return false;
+        
+      });
+    });
+    
+    $(function(){
+    $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+});
+    
+  </script>
+
+
+
+
+
+
+  <!-- Footer -->
+  <footer class="footer mt-auto py-3">
+  <div class="container">
+    <span class="text-muted">Place sticky footer content here.</span>
+  </div>
+</footer>
+{% endblock %}

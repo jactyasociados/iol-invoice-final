@@ -1,0 +1,19 @@
+.header {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+.first-column {
+    background: white;
+    color: white;
+    font-size: 2rem;
+    border-width:2px;
+    border-color:#fff;  
+    background: #ffffff;
+    align-items: left;
+
+}
+.second-column {
+
+  border-style: dotted;
+  border-width: 2px;
+}
