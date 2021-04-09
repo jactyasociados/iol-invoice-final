@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iol-invoice-final
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iol-invoice-final
+  template:
+    metadata:
+      labels:
+        app: iol-invoice-final
+    spec:
+      containers:
+      - image: okteto/iol-invoice-final:python
+        name: iol-invoice-final
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: iol-invoice-final
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+spec:
+  type: ClusterIP  
+  ports:
+  - name: "iol-invoice-final"
+    port: 8080
+  selector:
+    app: iol-invoice-final
